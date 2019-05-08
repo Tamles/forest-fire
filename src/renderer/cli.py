@@ -16,7 +16,7 @@ class CLIRenderer(base.BaseRenderer):
 
     def render(self):
         """
-        Return a string with the state of the forest.
+        Display a string in the console that represents the state of the forest.
         Each row is separated by a newline.
         Each cell in a row is next to the previous one.
         """
