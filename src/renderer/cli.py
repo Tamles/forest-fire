@@ -21,7 +21,7 @@ class CLIRenderer(base.BaseRenderer):
         Each cell in a row is next to the previous one.
         """
         display = "\n".join("".join([self._render_cell(cell) for cell in row]) for row in self.grid)
-        return display
+        print(display)
 
     @staticmethod
     def _render_cell(cell):
