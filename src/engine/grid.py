@@ -38,4 +38,5 @@ class Grid:
         y_range = range(y - 1 if y - 1 >= 0 else 0, y + 2 if y + 2 <= self.height else self.height)
         for i in x_range:
             for j in y_range:
-                yield (j, i)
+                if (y, x) != (j, i):
+                    yield (j, i)

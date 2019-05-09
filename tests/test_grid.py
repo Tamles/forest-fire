@@ -29,24 +29,29 @@ class TestGrid:
     def test_get_neightboor_corner_0_0(self):
         grid = gd.Grid(4, 5)
         neightboor = [cell for cell in grid.get_neightboor(0, 0)]
-        assert neightboor == [(0, 0), (1, 0), (0, 1), (1, 1)]
+        assert neightboor == [(1, 0), (0, 1), (1, 1)]
 
     def test_get_neightboor_corner_0_w(self):
         grid = gd.Grid(4, 5)
         neightboor = [cell for cell in grid.get_neightboor(0, grid.width - 1)]
-        assert neightboor == [(0, 3), (1, 3), (0, 4), (1, 4)]
+        assert neightboor == [(0, 3), (1, 3), (1, 4)]
 
     def test_get_neightboor_corner_h_w(self):
         grid = gd.Grid(4, 5)
         neightboor = [cell for cell in grid.get_neightboor(grid.height - 1, grid.width - 1)]
-        assert neightboor == [(2, 3), (3, 3), (2, 4), (3, 4)]
+        assert neightboor == [(2, 3), (3, 3), (2, 4)]
 
     def test_get_neightboor_corner_h_0(self):
         grid = gd.Grid(4, 5)
         neightboor = [cell for cell in grid.get_neightboor(grid.height - 1, 0)]
-        assert neightboor == [(2, 0), (3, 0), (2, 1), (3, 1)]
+        assert neightboor == [(2, 0), (2, 1), (3, 1)]
 
     def test_get_neightboor_edge_vert(self):
         grid = gd.Grid(4, 5)
         neightboor = [cell for cell in grid.get_neightboor(2, 0)]
-        assert neightboor == [(1, 0), (2, 0), (3, 0), (1, 1), (2, 1), (3, 1)]
+        assert neightboor == [(1, 0), (3, 0), (1, 1), (2, 1), (3, 1)]
+
+    def test_get_neightboor_edge_horiz(self):
+        grid = gd.Grid(4, 5)
+        neightboor = [cell for cell in grid.get_neightboor(0, 2)]
+        assert neightboor == [(0, 1), (1, 1), (1, 2), (0, 3), (1, 3)]
