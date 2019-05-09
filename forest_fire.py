@@ -3,6 +3,7 @@ Main module.
 """
 import argparse
 import src.engine.grid as gd
+import src.renderer.cli as cli_rd
 
 def main():
     """
@@ -13,14 +14,14 @@ def main():
     args = parser.parse_args()
     grid = gd.Grid(4, 5)
 
+    renderer = cli_rd.CLIRenderer(grid)
+    renderer.render()
+    print()
     grid[0][3] = 'tree'
-    for r in grid:
-        print(r)
+    renderer.render()
 
-    for y in range(grid.height):
-        for x in range(grid.width):
-            print(grid[y][x])
-        print()
+    ng = [cell for cell in grid.get_neighbor(1, 0)]
+    print(ng)
 
 if __name__ == "__main__":
     main()
