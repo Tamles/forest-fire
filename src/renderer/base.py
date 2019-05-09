@@ -10,9 +10,16 @@ class BaseRenderer(ABC):
     def __init__(self, grid):
         self.grid = grid
 
-    @abstractmethod
+    @abstractmethod # pragma: no mutate
     def render(self):
         """
         Should render the forest.
+        """
+        raise NotImplementedError   # pragma: no cover
+
+    @abstractmethod # pragma: no mutate
+    def update(self):
+        """
+        Should update the current state of the forest.
         """
         raise NotImplementedError   # pragma: no cover

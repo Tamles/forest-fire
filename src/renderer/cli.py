@@ -23,6 +23,9 @@ class CLIRenderer(base.BaseRenderer):
         display = "\n".join("".join([self._render_cell(cell) for cell in row]) for row in self.grid)
         print(display)
 
+    def update(self):
+        pass
+
     @staticmethod
     def _render_cell(cell):
         """
