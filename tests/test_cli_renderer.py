@@ -24,3 +24,15 @@ class TestCLIRender:
         captured = capsys.readouterr()
         output = captured.out[:~0] # Remove trailing newline
         assert output == ONE_TREE_GRID
+
+    def test_render_grid_one_burning(self, capsys):
+        ONE_BURNING_GRID = """..
+.x
+.."""
+        grid = gd.Grid(3, 2)
+        grid[1][1] = gd.BURNING
+        renderer = cli_renderer.CLIRenderer(grid)
+        renderer.render()
+        captured = capsys.readouterr()
+        output = captured.out[:~0] # Remove trailing newline
+        assert output == ONE_BURNING_GRID
