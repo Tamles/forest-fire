@@ -18,7 +18,7 @@ class TestCLIRender:
         ONE_TREE_GRID = """..o
 ..."""
         grid = gd.Grid(2, 3)
-        grid[0][2] = gd.TREE
+        grid[2, 0] = gd.TREE
         renderer = cli_renderer.CLIRenderer(grid)
         renderer.render()
         captured = capsys.readouterr()
@@ -30,7 +30,7 @@ class TestCLIRender:
 .x
 .."""
         grid = gd.Grid(3, 2)
-        grid[1][1] = gd.BURNING
+        grid[1, 1] = gd.BURNING
         renderer = cli_renderer.CLIRenderer(grid)
         renderer.render()
         captured = capsys.readouterr()

@@ -20,7 +20,10 @@ class CLIRenderer(base.BaseRenderer):
         Each row is separated by a newline.
         Each cell in a row is next to the previous one.
         """
-        display = "\n".join("".join([self._render_cell(cell) for cell in row]) for row in self.grid)
+        cells = [cell for cell in self.grid]
+        display = "\n".join(["".join(
+                                    [self._render_cell(cell) for cell in cells[i * self.grid.width:(i + 1) * self.grid.width]]
+                                    ) for i in range(self.grid.height)])
         print(display)
 
     def update(self):
