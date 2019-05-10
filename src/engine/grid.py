@@ -14,6 +14,12 @@ class Grid:
     Cells can be accessed with grid[x][y] notation.
     """
     def __init__(self, height, width, planting_rate=0, lightning_rate=0):
+        """
+        height: int, the number of rows in the grid
+        width: int, the number of columns in the grid
+        planting_rate: float, the probability that a tree will appear on a empty cell
+        lightning_rate: float, the probability that a fire will start on a tree cell
+        """
         self.width = width
         self.height = height
         self.planting_rate = planting_rate
@@ -21,17 +27,33 @@ class Grid:
         self._grid = [[EMPTY]*width for _ in range(height)]
 
     def __getitem__(self, index):
+        """
+        Return a cell based on coordinates.
+        index: tuple of 2 int, the x and y coordinates
+        """
         x, y = index
         return self._grid[y][x]
 
     def __setitem__(self, index, value):
+        """
+        Put a value in a cell.
+        index: tuple of 2 int, the x and y coordinates
+        value: string, the value put in the cell, should be one of the states EMPTY, TREE or BURNING
+        """
         x, y = index
         self._grid[y][x] = value
 
     def __len__(self):
+        """
+        Return the number of cells of the grid.
+        """
         return self.width * self.height
 
     def __iter__(self):
+        """
+        Iterate over the cells.
+        Can be used as [cell for cell in grid] to get a list of all cells.
+        """
         for y in range(self.height):
             for x in range(self.width):
                 yield self._grid[y][x]
@@ -62,7 +84,9 @@ class Grid:
 
     def _neighbor_burning(self, x, y):
         """
-        Return True if an adjacent cell is burning, False otherwise
+        Return True if an adjacent cell is burning, False otherwise.
+        x: int, represents the location on the X axis (horizontal)
+        y: int, represents the location on the Y axis (vertical)
         """
         neighbors = self.get_neighbor(x, y)
         for neighbor in neighbors:
@@ -74,6 +98,8 @@ class Grid:
         """
         Return a list of coordinates of neighbors.
         Take into account the edges and corners of the grid.
+        x: int, represents the location on the X axis (horizontal)
+        y: int, represents the location on the Y axis (vertical)
         """
         x_range = range(x - 1 if x - 1 >= 0 else 0, x + 2 if x + 2 <= self.width else self.width)
         y_range = range(y - 1 if y - 1 >= 0 else 0, y + 2 if y + 2 <= self.height else self.height)
