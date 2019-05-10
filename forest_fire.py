@@ -12,19 +12,37 @@ def main():
     """
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
-    grid = gd.Grid(3, 3)
+    grid = gd.Grid(13, 13)
+    for x in range(grid.width):
+        for y in range(grid.height):
+            grid[x, y] = gd.TREE
 
     renderer = cli_rd.CLIRenderer(grid)
     renderer.render()
     print()
-    grid[1, 0] = 'burning'
-    grid[0, 1] = 'tree'
+    grid[6, 6] = 'burning'
     renderer.render()
-
-    ng = [cell for cell in grid.get_neighbor(1, 0)]
-    print(ng)
-    for n in ng:
-        print(grid[n])
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
+    grid.update()
+    print()
+    renderer.render()
 
 if __name__ == "__main__":
     main()
