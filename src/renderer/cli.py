@@ -2,6 +2,7 @@
 Module to render a forest in the console.
 """
 import time
+from colorama import Back, Fore, init
 import src.renderer.base as base
 import src.engine.grid as gd
 
@@ -18,6 +19,7 @@ class CLIRenderer(base.BaseRenderer):
     """
 
     def __init__(self, grid, update_rate=0.2, number_steps=10):
+        init()
         super().__init__(grid, update_rate, number_steps)
 
     def display(self):
@@ -36,10 +38,16 @@ class CLIRenderer(base.BaseRenderer):
         print()
 
     def update(self):
+        """
+        Update the forest and display it, and sleep until next step.
+        """
         super().update()
         sleep(self.update_rate)
 
     def render(self):
+        """
+        Simulate the forest fire.
+        """
         step = 1
         self.display()
         while step < self.number_steps:
@@ -48,9 +56,20 @@ class CLIRenderer(base.BaseRenderer):
             step += 1
 
     @staticmethod
+    def _color_text(text, color):
+        """
+        Add ANSI code to text to change the color of the text.
+        """
+        return Fore.__dict__[color] + Back.__dict__[color] + text + Back.RESET + Fore.RESET
+
+    @staticmethod
     def _render_cell(cell):
         """
         Return a character based on the state of the cell.
         """
-        cells = {gd.EMPTY: '.', gd.TREE: 'o', gd.BURNING: 'x'}
+        cells = {
+            gd.EMPTY: CLIRenderer._color_text('.', 'BLACK'),
+            gd.TREE: CLIRenderer._color_text('o', 'GREEN'),
+            gd.BURNING: CLIRenderer._color_text('x', 'RED')
+        }
         return cells[cell]
