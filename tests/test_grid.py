@@ -11,7 +11,7 @@ class TestGrid:
         assert gd.TREE == 'tree'
         assert gd.BURNING == 'burning'
 
-    def test_coordonates(self):
+    def test_coordinates(self):
         grid = gd.Grid(4, 5)
         grid._grid = [["{}{}".format(i,j) for i in range(grid.width)] for j in range(grid.height)]
         for x in range(grid.width):
@@ -53,6 +53,9 @@ class TestGrid:
             assert cell == gd.TREE
 
     def test_update_some_trees(self):
+        """
+        Seed is hardcoded, so random is predictable and we can check some trees appeared.
+        """
         random.seed(0)
         grid = gd.Grid(4, 5, 0.5)
         assert self.grid_is_empty(grid)
@@ -67,6 +70,9 @@ class TestGrid:
         assert self.grid_is_empty(grid)
 
     def test_update_lightning_on_tree(self):
+        """
+        Seed is hardcoded, so we can predict where the lightning will strike.
+        """
         random.seed(0)
         grid = gd.Grid(4, 5, 0, 1)
         for x in range(grid.width):
@@ -76,6 +82,29 @@ class TestGrid:
         for x in range(grid.width):
             for y in range(grid.height):
                 if x == 3 and y == 0:
+                    assert grid[x, y] == gd.BURNING
+                else:
+                    assert grid[x, y] == gd.TREE
+
+    def test_update_lightning_rate(self):
+        """
+        Seed is hardcoded, so we can predict when and where the lightning will strike.
+        """
+        random.seed(0)
+        grid = gd.Grid(4, 5, 0, 0.5)
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = gd.TREE
+        grid.update()
+        for cell in grid:
+            assert cell == gd.TREE
+        grid.update()
+        for cell in grid:
+            assert cell == gd.TREE
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                if x == 2 and y == 3:
                     assert grid[x, y] == gd.BURNING
                 else:
                     assert grid[x, y] == gd.TREE

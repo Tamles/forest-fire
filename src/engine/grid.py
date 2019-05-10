@@ -72,7 +72,7 @@ class Grid:
 
     def get_neighbor(self, x, y):
         """
-        Return a list of coordonates of neighbors.
+        Return a list of coordinates of neighbors.
         Take into account the edges and corners of the grid.
         """
         x_range = range(x - 1 if x - 1 >= 0 else 0, x + 2 if x + 2 <= self.width else self.width)
