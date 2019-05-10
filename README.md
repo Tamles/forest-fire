@@ -2,7 +2,7 @@
 
 ## Simulation of a forest fire
 
-This project simulates a forest fire based on simple rules.
+This project simulates a forest fire based on simple rules. Here is an example of the output you can get.
 
 ## Rules
 
@@ -22,7 +22,7 @@ The version 3.7 of python is required.
 Then, in the virtual environnement, run:
 
 ```console
-(venv) $ pip install -e .
+(venv) $ pip install -r requirements.txt
 ```
 
 ## Usage
@@ -32,3 +32,30 @@ To run the simulation, run the script:
 ```console
 (venv) $ python forest-fire.py
 ```
+
+To get help:
+
+```console
+(venv) $ python forest-fire.py -h
+```
+
+## Tests
+
+To run the tests, ensure to install the packages in requirements-tests.txt and then, run:
+
+```console
+(venv) $ python -m pytest
+```
+
+If you want to see the coverage report, run:
+
+```console
+(venv) $ python -m pytest --cov=src --cov-branch
+```
+
+To test the code with mutation testing, you can run mutmut with:
+
+```console
+(venv) $ python -m mutmut run
+```
+
