@@ -1,6 +1,7 @@
 """
 Module that defines grid object, which contains cells.
 """
+import random
 from copy import deepcopy
 
 EMPTY = 'empty'
@@ -12,9 +13,10 @@ class Grid:
     Grid object.
     Cells can be accessed with grid[x][y] notation.
     """
-    def __init__(self, height, width):
+    def __init__(self, height, width, planting_rate=0):
         self.width = width
         self.height = height
+        self.planting_rate = planting_rate
         self._grid = [[EMPTY]*width for _ in range(height)]
 
     def __getitem__(self, index):
@@ -41,6 +43,8 @@ class Grid:
                     new_grid[y][x] = BURNING
                 if self._grid[y][x] == BURNING:
                     new_grid[y][x] = EMPTY
+                if self._grid[y][x] == EMPTY and random.random() < self.planting_rate:
+                    new_grid[y][x] = TREE
         self._grid = new_grid
 
     def _neighbor_burning(self, x, y):

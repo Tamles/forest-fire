@@ -14,7 +14,7 @@ def main():
     """
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
-    grid = gd.Grid(13, 13)
+    grid = gd.Grid(13, 13, 0.1)
     for x in range(grid.width):
         for y in range(grid.height):
             if random.random() > 0.4:

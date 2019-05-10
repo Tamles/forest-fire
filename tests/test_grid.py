@@ -2,6 +2,10 @@ import sys
 import src.engine.grid as gd
 
 class TestGrid:
+
+    def grid_is_empty(self, grid):
+        return all([cell == gd.EMPTY for cell in grid])
+
     def test_constants(self):
         assert gd.EMPTY == 'empty'
         assert gd.TREE == 'tree'
@@ -16,9 +20,7 @@ class TestGrid:
 
     def test_empty_grid(self):
         grid = gd.Grid(4, 5)
-        for y in range(grid.height):
-            for x in range(grid.width):
-                assert grid[x, y] == gd.EMPTY
+        assert self.grid_is_empty(grid)
 
     def test_len_grid(self):
         grid = gd.Grid(4, 5)
@@ -42,6 +44,22 @@ class TestGrid:
         for x in range(grid.width):
             for y in range(grid.height):
                 assert grid[x, y] == updated_grid[y][x]
+
+    def test_update_all_trees(self):
+        grid = gd.Grid(4, 5, 1)
+        assert self.grid_is_empty(grid)
+        grid.update()
+        for cell in grid:
+            assert cell == gd.TREE
+
+    def test_update_some_trees(self):
+        import random
+        random.seed(0)
+        grid = gd.Grid(4, 5, 0.5)
+        assert self.grid_is_empty(grid)
+        grid.update()
+        cells = [cell for cell in grid]
+        assert cells == ['empty', 'empty', 'tree', 'tree', 'empty', 'tree', 'empty', 'tree', 'tree', 'empty', 'empty', 'empty', 'tree', 'empty', 'empty', 'tree', 'empty', 'empty', 'empty', 'empty']
 
     def test_get_neighbor_corner_0_0(self):
         grid = gd.Grid(4, 5)
