@@ -17,7 +17,7 @@ The forest is represented as a grid of cells which can be in defined states:
 ## Install
 
 To install the simulator, clone the repo and create a virtual environnement thanks to python-venv.
-The version 3.7 of python is required.
+The version 3 of python is required.
 
 Then, in the virtual environnement, run:
 
