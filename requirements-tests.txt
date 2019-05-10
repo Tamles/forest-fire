@@ -1,0 +1,6 @@
+colorama
+pytest
+pytest_mock
+pytest_cov
+mutmut
+pylint
