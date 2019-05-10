@@ -41,13 +41,17 @@ def main():
     parser.add_argument('--update_rate', type=positive_float, help="Time between two update of the forest, in seconds", default=0.2)
     parser.add_argument('--number_steps', type=positive_int, help="Number of steps before the simulation ends", default=10)
     parser.add_argument('--planting_rate', type=probability, help="Probability of a tree to grow on an empty cell", default=0.1)
-    parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.1)
+    parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.4)
+    parser.add_argument('--width', type=positive_int, help="Width of the forest", default=130)
+    parser.add_argument('--height', type=positive_int, help="Height of the forest", default=13)
     args = parser.parse_args()
     update_rate = args.update_rate
     number_steps = args.number_steps
     planting_rate = args.planting_rate
     lightning_rate = args.lightning_rate
-    grid = gd.Grid(13, 13, planting_rate=planting_rate, lightning_rate=lightning_rate)
+    width = args.width
+    height = args.height
+    grid = gd.Grid(height, width, planting_rate=planting_rate, lightning_rate=lightning_rate)
     renderer = cli_rd.CLIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
     renderer.render()
 
