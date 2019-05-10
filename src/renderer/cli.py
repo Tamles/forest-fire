@@ -17,7 +17,7 @@ class CLIRenderer(base.BaseRenderer):
     Extend from the base renderer and implement the render method.
     """
 
-    def __init__(self, grid, update_rate=0.2, number_steps=30):
+    def __init__(self, grid, update_rate=0.2, number_steps=10):
         super().__init__(grid, update_rate, number_steps)
 
     def display(self):
@@ -40,7 +40,7 @@ class CLIRenderer(base.BaseRenderer):
         sleep(self.update_rate)
 
     def render(self):
-        step = 0
+        step = 1
         self.display()
         while step < self.number_steps:
             self.update()

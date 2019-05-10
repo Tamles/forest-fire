@@ -78,10 +78,6 @@ ox.o.
 xo...
 x.o.o
 x..o.
-
-.xooo
-.oxoo
-..oo.
 """
         mocker.patch('src.renderer.cli.sleep')
         grid = gd.Grid(3, 5, 0.5, 0.7)
