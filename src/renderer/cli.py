@@ -21,9 +21,11 @@ class CLIRenderer(base.BaseRenderer):
         Each cell in a row is next to the previous one.
         """
         cells = [cell for cell in self.grid]
-        display = "\n".join(["".join(
-                                    [self._render_cell(cell) for cell in cells[i * self.grid.width:(i + 1) * self.grid.width]]
-                                    ) for i in range(self.grid.height)])
+        display = "\n".join(
+            ["".join(
+                [self._render_cell(cell) for cell in cells[i * self.grid.width:(i + 1) * self.grid.width]]
+            ) for i in range(self.grid.height)]
+        )
         print(display)
 
     def update(self):
