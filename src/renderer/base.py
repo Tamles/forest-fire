@@ -7,8 +7,10 @@ class BaseRenderer(ABC):
     """
     Abstract renderer. Specify the interface of a renderer.
     """
-    def __init__(self, grid):
+    def __init__(self, grid, update_rate, number_steps):
         self.grid = grid
+        self.update_rate = update_rate
+        self.number_steps = number_steps
 
     @abstractmethod # pragma: no mutate
     def render(self):
@@ -17,9 +19,8 @@ class BaseRenderer(ABC):
         """
         raise NotImplementedError   # pragma: no cover
 
-    @abstractmethod # pragma: no mutate
     def update(self):
         """
         Should update the current state of the forest.
         """
-        raise NotImplementedError   # pragma: no cover
+        self.grid.update()
