@@ -1,4 +1,4 @@
-import sys
+import random
 import src.engine.grid as gd
 
 class TestGrid:
@@ -53,13 +53,32 @@ class TestGrid:
             assert cell == gd.TREE
 
     def test_update_some_trees(self):
-        import random
         random.seed(0)
         grid = gd.Grid(4, 5, 0.5)
         assert self.grid_is_empty(grid)
         grid.update()
         cells = [cell for cell in grid]
         assert cells == ['empty', 'empty', 'tree', 'tree', 'empty', 'tree', 'empty', 'tree', 'tree', 'empty', 'empty', 'empty', 'tree', 'empty', 'empty', 'tree', 'empty', 'empty', 'empty', 'empty']
+
+    def test_update_lightning_on_empty(self):
+        grid = gd.Grid(4, 5, 0, 1)
+        assert self.grid_is_empty(grid)
+        grid.update()
+        assert self.grid_is_empty(grid)
+
+    def test_update_lightning_on_tree(self):
+        random.seed(0)
+        grid = gd.Grid(4, 5, 0, 1)
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = gd.TREE
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                if x == 3 and y == 0:
+                    assert grid[x, y] == gd.BURNING
+                else:
+                    assert grid[x, y] == gd.TREE
 
     def test_get_neighbor_corner_0_0(self):
         grid = gd.Grid(4, 5)
