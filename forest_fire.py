@@ -39,7 +39,7 @@ def main():
     """
     parser = argparse.ArgumentParser(description="Run a simulation of forest fire")
     parser.add_argument('--update_rate', type=positive_float, help="Time between two update of the forest, in seconds", default=0.2)
-    parser.add_argument('--number_steps', type=positive_int, help="Number of steps before the simulation ends", default=10)
+    parser.add_argument('--number_steps', type=positive_int, help="Number of steps before the simulation ends", default=50)
     parser.add_argument('--planting_rate', type=probability, help="Probability of a tree to grow on an empty cell", default=0.1)
     parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.4)
     parser.add_argument('--width', type=positive_int, help="Width of the forest", default=130)
