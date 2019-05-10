@@ -33,15 +33,22 @@ class Grid:
             for x in range(self.width):
                 yield self._grid[y][x]
 
-#    def update(self):
-#        prev_grid = deepcopy(self._grid)
-#        for y in range(self.height):
-#            for x in range(self.width):
-#                if self._neighbor_burning(y, x) and prev_grid[y][x] == TREE:
-#                    self._grid[y][x] = BURNING
+    def update(self):
+        new_grid = deepcopy(self._grid)
+        for y in range(self.height):
+            for x in range(self.width):
+                if self._neighbor_burning(x, y) and self._grid[y][x] == TREE:
+                    new_grid[y][x] = BURNING
+                if self._grid[y][x] == BURNING:
+                    new_grid[y][x] = EMPTY
+        self._grid = new_grid
 
-    def _neighbor_burning(self, y, x):
-        pass
+    def _neighbor_burning(self, x, y):
+        neighbors = self.get_neighbor(x, y)
+        for ng in neighbors:
+            if self[ng] == BURNING:
+                return True
+        return False
 
     def get_neighbor(self, x, y):
         x_range = range(x - 1 if x - 1 >= 0 else 0, x + 2 if x + 2 <= self.width else self.width)
