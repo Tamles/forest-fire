@@ -3,6 +3,9 @@
 ## Simulation of a forest fire
 
 This project simulates a forest fire based on simple rules. Here is an example of the output you can get.
+![Forest fire](forest_fire.png)
+
+The simulation is a cellular automaton. Here is a [wikipedia page](https://en.wikipedia.org/wiki/Forest-fire_model) about this kind of automaton.
 
 ## Rules
 
