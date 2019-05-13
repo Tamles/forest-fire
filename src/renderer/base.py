@@ -1,7 +1,15 @@
 """
 Abstract renderer. Renderer should extend from the BaseRenderer.
 """
+import time
 from abc import ABC, abstractmethod
+
+def sleep(interval):
+    """
+    Wrap the call to time.sleep.
+    interval: float, the number of seconds to sleep
+    """
+    time.sleep(interval) # pragma: no cover
 
 class BaseRenderer(ABC):
     """
@@ -24,3 +32,4 @@ class BaseRenderer(ABC):
         Should update the current state of the forest.
         """
         self.grid.update()
+        sleep(self.update_rate)

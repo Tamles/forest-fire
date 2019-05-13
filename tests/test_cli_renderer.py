@@ -1,6 +1,7 @@
 import random
 from pytest_mock import mocker
 import src.renderer.cli as cli_renderer
+import src.renderer.base
 import src.engine.grid as gd
 
 class TestCLIRender:
@@ -44,11 +45,11 @@ class TestCLIRender:
 
 
     def test_time_update(self, mocker):
-        mocker.patch('src.renderer.cli.sleep')
+        mocker.patch('src.renderer.base.sleep')
         grid = gd.Grid(3, 2)
         renderer = cli_renderer.CLIRenderer(grid, update_rate=1)
         renderer.update()
-        cli_renderer.sleep.assert_called_with(1)
+        src.renderer.base.sleep.assert_called_with(1)
 
     def test_render(self, mocker, capsys):
         FOREST = """.....
@@ -79,7 +80,7 @@ xo...
 x.o.o
 x..o.
 """
-        mocker.patch('src.renderer.cli.sleep')
+        mocker.patch('src.renderer.base.sleep')
         grid = gd.Grid(3, 5, 0.5, 0.7)
         random.seed(0)
         renderer = cli_renderer.CLIRenderer(grid, update_rate=1, number_steps=7)

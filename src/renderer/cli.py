@@ -1,17 +1,9 @@
 """
 Module to render a forest in the console.
 """
-import time
 from colorama import Back, Fore, init
 import src.renderer.base as base
 import src.engine.grid as gd
-
-def sleep(interval):
-    """
-    Wrap the call to time.sleep.
-    interval: float, the number of seconds to sleep
-    """
-    time.sleep(interval) # pragma: no cover
 
 class CLIRenderer(base.BaseRenderer):
     """
@@ -48,7 +40,6 @@ class CLIRenderer(base.BaseRenderer):
         Update the forest and display it, and sleep until next step.
         """
         super().update()
-        sleep(self.update_rate)
 
     def render(self):
         """

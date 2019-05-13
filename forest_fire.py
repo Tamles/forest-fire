@@ -4,6 +4,7 @@ Main module.
 import argparse
 import src.engine.grid as gd
 import src.renderer.cli as cli_rd
+import src.renderer.pygame as gui_rd
 
 def probability(x):
     """
@@ -44,6 +45,7 @@ def main():
     parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.4)
     parser.add_argument('--width', type=positive_int, help="Width of the forest", default=130)
     parser.add_argument('--height', type=positive_int, help="Height of the forest", default=13)
+    parser.add_argument('--gui', help="Should use GUI renderer instead of CLI one", action='store_true')
     args = parser.parse_args()
     update_rate = args.update_rate
     number_steps = args.number_steps
@@ -52,7 +54,10 @@ def main():
     width = args.width
     height = args.height
     grid = gd.Grid(height, width, planting_rate=planting_rate, lightning_rate=lightning_rate)
-    renderer = cli_rd.CLIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
+    if args.gui:
+        renderer = gui_rd.GUIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
+    else:
+        renderer = cli_rd.CLIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
     renderer.render()
 
 if __name__ == "__main__":
