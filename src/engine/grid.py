@@ -7,6 +7,8 @@ from copy import deepcopy
 EMPTY = 'empty'
 TREE = 'tree'
 BURNING = 'burning'
+ASH_1 = 'ash_1'
+ASH_2 = 'ash_2'
 
 class Grid:
     """
@@ -72,10 +74,15 @@ class Grid:
                 if self._neighbor_burning(x, y) and self._grid[y][x] == TREE:
                     new_grid[y][x] = BURNING
                 if self._grid[y][x] == BURNING:
+                    new_grid[y][x] = ASH_1
+                if self._grid[y][x] == ASH_1:
+                    new_grid[y][x] = ASH_2
+                if self._grid[y][x] == ASH_2:
                     new_grid[y][x] = EMPTY
                 if self._grid[y][x] == EMPTY and random.random() < self.planting_rate:
                     new_grid[y][x] = TREE
-        if random.random() < self.lightning_rate:
+        has_fire = any([cell == BURNING for cell in self])
+        if random.random() < self.lightning_rate and not has_fire:
             x = random.randrange(self.width)
             y = random.randrange(self.height)
             if self._grid[y][x] == TREE:

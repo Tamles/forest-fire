@@ -70,6 +70,9 @@ class CLIRenderer(base.BaseRenderer):
         cells = {
             gd.EMPTY: CLIRenderer._color_text('.', 'BLACK'),
             gd.TREE: CLIRenderer._color_text('o', 'GREEN'),
-            gd.BURNING: CLIRenderer._color_text('x', 'RED')
+            gd.BURNING: CLIRenderer._color_text('x', 'RED'),
+            gd.ASH_1: CLIRenderer._color_text('1', 'BLACK'),
+            gd.ASH_2: CLIRenderer._color_text('2', 'BLACK'),
+
         }
         return cells[cell]

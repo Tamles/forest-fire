@@ -26,16 +26,50 @@ class TestGrid:
         grid = gd.Grid(4, 5)
         assert len(grid) == 4 * 5
 
+
+    def test_burning_ash_cycle(self):
+        start_grid = [['tree', 'empty', 'burning']]
+        ash_1_grid = [['tree', 'empty', 'ash_1']]
+        ash_2_grid = [['tree', 'empty', 'ash_2']]
+        empty_grid = [['tree', 'empty', 'empty']]
+        grid = gd.Grid(1, 3)
+
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = start_grid[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = ash_1_grid[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = ash_2_grid[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                grid[x, y] = empty_grid[y][x]
+
     def test_update_grid_burning_spread(self):
         previous_grid = [['empty', 'empty', 'empty', 'empty', 'empty'],
                         ['empty', 'tree', 'empty', 'empty', 'empty'],
                         ['empty', 'empty', 'tree', 'tree', 'empty'],
                         ['empty', 'empty', 'burning', 'empty', 'empty']]
 
-        updated_grid = [['empty', 'empty', 'empty', 'empty', 'empty'],
-                        ['empty', 'tree', 'empty', 'empty', 'empty'],
-                        ['empty', 'empty', 'burning', 'burning', 'empty'],
-                        ['empty', 'empty', 'empty', 'empty', 'empty']]
+        updated_grid_1 = [['empty', 'empty', 'empty', 'empty', 'empty'],
+                         ['empty', 'tree', 'empty', 'empty', 'empty'],
+                         ['empty', 'empty', 'burning', 'burning', 'empty'],
+                         ['empty', 'empty', 'ash_1', 'empty', 'empty']]
+
+        updated_grid_2 = [['empty', 'empty', 'empty', 'empty', 'empty'],
+                         ['empty', 'burning', 'empty', 'empty', 'empty'],
+                         ['empty', 'empty', 'ash_1', 'ash_1', 'empty'],
+                         ['empty', 'empty', 'ash_2', 'empty', 'empty']]
+
+        updated_grid_3 = [['empty', 'empty', 'empty', 'empty', 'empty'],
+                         ['empty', 'ash_1', 'empty', 'empty', 'empty'],
+                         ['empty', 'empty', 'ash_2', 'ash_2', 'empty'],
+                         ['empty', 'empty', 'empty', 'empty', 'empty']]
         grid = gd.Grid(4, 5)
         for x in range(grid.width):
             for y in range(grid.height):
@@ -43,7 +77,15 @@ class TestGrid:
         grid.update()
         for x in range(grid.width):
             for y in range(grid.height):
-                assert grid[x, y] == updated_grid[y][x]
+                assert grid[x, y] == updated_grid_1[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                assert grid[x, y] == updated_grid_2[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                assert grid[x, y] == updated_grid_3[y][x]
 
     def test_update_all_trees(self):
         grid = gd.Grid(4, 5, 1)
