@@ -7,9 +7,9 @@ class TestGrid:
         return all([cell == gd.EMPTY for cell in grid])
 
     def test_constants(self):
-        assert gd.EMPTY == 'empty'
-        assert gd.TREE == 'tree'
-        assert gd.BURNING == 'burning'
+        assert gd.EMPTY == 0
+        assert gd.TREE == -1
+        assert gd.BURNING == 5
 
     def test_coordinates(self):
         grid = gd.Grid(4, 5)
@@ -28,10 +28,12 @@ class TestGrid:
 
 
     def test_burning_ash_cycle(self):
-        start_grid = [['tree', 'empty', 'burning']]
-        ash_1_grid = [['tree', 'empty', 'ash_1']]
-        ash_2_grid = [['tree', 'empty', 'ash_2']]
-        empty_grid = [['tree', 'empty', 'empty']]
+        start_grid = [[-1, 0, 5]]
+        ash_1_grid = [[-1, 0, 4]]
+        ash_2_grid = [[-1, 0, 3]]
+        ash_3_grid = [[-1, 0, 2]]
+        ash_4_grid = [[-1, 0, 1]]
+        empty_grid = [[-1, 0, 0]]
         grid = gd.Grid(1, 3)
 
         for x in range(grid.width):
@@ -40,36 +42,44 @@ class TestGrid:
         grid.update()
         for x in range(grid.width):
             for y in range(grid.height):
-                grid[x, y] = ash_1_grid[y][x]
+                assert grid[x, y] == ash_1_grid[y][x]
         grid.update()
         for x in range(grid.width):
             for y in range(grid.height):
-                grid[x, y] = ash_2_grid[y][x]
+                assert grid[x, y] == ash_2_grid[y][x]
         grid.update()
         for x in range(grid.width):
             for y in range(grid.height):
-                grid[x, y] = empty_grid[y][x]
+                assert grid[x, y] == ash_3_grid[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                assert grid[x, y] == ash_4_grid[y][x]
+        grid.update()
+        for x in range(grid.width):
+            for y in range(grid.height):
+                assert grid[x, y] == empty_grid[y][x]
 
     def test_update_grid_burning_spread(self):
-        previous_grid = [['empty', 'empty', 'empty', 'empty', 'empty'],
-                        ['empty', 'tree', 'empty', 'empty', 'empty'],
-                        ['empty', 'empty', 'tree', 'tree', 'empty'],
-                        ['empty', 'empty', 'burning', 'empty', 'empty']]
+        previous_grid = [[0, 0, 0, 0, 0],
+                        [0, -1, 0, 0, 0],
+                        [0, 0, -1, -1, 0],
+                        [0, 0, 5, 0, 0]]
 
-        updated_grid_1 = [['empty', 'empty', 'empty', 'empty', 'empty'],
-                         ['empty', 'tree', 'empty', 'empty', 'empty'],
-                         ['empty', 'empty', 'burning', 'burning', 'empty'],
-                         ['empty', 'empty', 'ash_1', 'empty', 'empty']]
+        updated_grid_1 = [[0, 0, 0, 0, 0],
+                         [0, -1, 0, 0, 0],
+                         [0, 0, 5, 5, 0],
+                         [0, 0, 4, 0, 0]]
 
-        updated_grid_2 = [['empty', 'empty', 'empty', 'empty', 'empty'],
-                         ['empty', 'burning', 'empty', 'empty', 'empty'],
-                         ['empty', 'empty', 'ash_1', 'ash_1', 'empty'],
-                         ['empty', 'empty', 'ash_2', 'empty', 'empty']]
+        updated_grid_2 = [[0, 0, 0, 0, 0],
+                         [0, 5, 0, 0, 0],
+                         [0, 0, 4, 4, 0],
+                         [0, 0, 3, 0, 0]]
 
-        updated_grid_3 = [['empty', 'empty', 'empty', 'empty', 'empty'],
-                         ['empty', 'ash_1', 'empty', 'empty', 'empty'],
-                         ['empty', 'empty', 'ash_2', 'ash_2', 'empty'],
-                         ['empty', 'empty', 'empty', 'empty', 'empty']]
+        updated_grid_3 = [[0, 0, 0, 0, 0],
+                         [0, 4, 0, 0, 0],
+                         [0, 0, 3, 3, 0],
+                         [0, 0, 2, 0, 0]]
         grid = gd.Grid(4, 5)
         for x in range(grid.width):
             for y in range(grid.height):
@@ -103,7 +113,7 @@ class TestGrid:
         assert self.grid_is_empty(grid)
         grid.update()
         cells = [cell for cell in grid]
-        assert cells == ['empty', 'empty', 'tree', 'tree', 'empty', 'tree', 'empty', 'tree', 'tree', 'empty', 'empty', 'empty', 'tree', 'empty', 'empty', 'tree', 'empty', 'empty', 'empty', 'empty']
+        assert cells == [0, 0, -1, -1, 0, -1, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0]
 
     def test_update_lightning_on_empty(self):
         grid = gd.Grid(4, 5, 0, 1)

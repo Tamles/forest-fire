@@ -4,11 +4,9 @@ Module that defines grid object, which contains cells.
 import random
 from copy import deepcopy
 
-EMPTY = 'empty'
-TREE = 'tree'
-BURNING = 'burning'
-ASH_1 = 'ash_1'
-ASH_2 = 'ash_2'
+EMPTY = 0
+TREE = -1
+BURNING = 5
 
 class Grid:
     """
@@ -73,12 +71,8 @@ class Grid:
             for x in range(self.width):
                 if self._neighbor_burning(x, y) and self._grid[y][x] == TREE:
                     new_grid[y][x] = BURNING
-                if self._grid[y][x] == BURNING:
-                    new_grid[y][x] = ASH_1
-                if self._grid[y][x] == ASH_1:
-                    new_grid[y][x] = ASH_2
-                if self._grid[y][x] == ASH_2:
-                    new_grid[y][x] = EMPTY
+                if self._grid[y][x] > EMPTY:
+                    new_grid[y][x] = self._grid[y][x] - 1
                 if self._grid[y][x] == EMPTY and random.random() < self.planting_rate:
                     new_grid[y][x] = TREE
         has_fire = any([cell == BURNING for cell in self])

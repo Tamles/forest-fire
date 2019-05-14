@@ -5,7 +5,7 @@ from colorama import Back, Fore, init
 import src.renderer.base as base
 import src.engine.grid as gd
 
-class CLIRenderer(base.BaseRenderer):
+class DebugRenderer(base.BaseRenderer):
     """
     CLI Renderer.
     Extend from the base renderer and implement the render method.
@@ -40,8 +40,6 @@ class CLIRenderer(base.BaseRenderer):
         Update the forest and display it, and sleep until next step.
         """
         super().update()
-        self.display()
-        return True
 
     def render(self):
         """
@@ -49,7 +47,9 @@ class CLIRenderer(base.BaseRenderer):
         """
         step = 1
         self.display()
-        while step < self.number_steps and self.update():
+        while step < self.number_steps:
+            self.update()
+            self.display()
             step += 1
 
     @staticmethod
@@ -67,9 +67,4 @@ class CLIRenderer(base.BaseRenderer):
         Return a character based on the state of the cell.
         cell: string, one of the 3 states available in the grid: EMPTY, TREE or BURNING
         """
-        cells = {
-            gd.TREE: CLIRenderer._color_text('o', 'GREEN'),
-            gd.BURNING: CLIRenderer._color_text('x', 'RED'),
-        }
-        cells.update({i: CLIRenderer._color_text('.', 'BLACK') for i in range(gd.BURNING)})
-        return cells[cell]
+        return str(cell)

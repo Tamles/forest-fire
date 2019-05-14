@@ -5,6 +5,7 @@ import argparse
 import src.engine.grid as gd
 import src.renderer.cli as cli_rd
 import src.renderer.pygame as gui_rd
+import src.renderer.debug as debug_rd
 
 def probability(x):
     """
@@ -43,9 +44,9 @@ def main():
     parser.add_argument('--number_steps', type=positive_int, help="Number of steps before the simulation ends", default=50)
     parser.add_argument('--planting_rate', type=probability, help="Probability of a tree to grow on an empty cell", default=0.1)
     parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.4)
-    parser.add_argument('--width', type=positive_int, help="Width of the forest", default=130)
-    parser.add_argument('--height', type=positive_int, help="Height of the forest", default=13)
-    parser.add_argument('--gui', help="Should use GUI renderer instead of CLI one", action='store_true')
+    parser.add_argument('-W', '--width', type=positive_int, help="Width of the forest", default=130)
+    parser.add_argument('-H', '--height', type=positive_int, help="Height of the forest", default=13)
+    parser.add_argument('--renderer', help="Which renderer to use", default='cli')
     args = parser.parse_args()
     update_rate = args.update_rate
     number_steps = args.number_steps
@@ -54,10 +55,12 @@ def main():
     width = args.width
     height = args.height
     grid = gd.Grid(height, width, planting_rate=planting_rate, lightning_rate=lightning_rate)
-    if args.gui:
+    if args.renderer == 'gui':
         renderer = gui_rd.GUIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
-    else:
+    elif args.renderer == 'cli':
         renderer = cli_rd.CLIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
+    elif args.renderer == 'debug':
+        renderer = debug_rd.DebugRenderer(grid, update_rate=update_rate, number_steps=number_steps)
     renderer.render()
 
 if __name__ == "__main__":

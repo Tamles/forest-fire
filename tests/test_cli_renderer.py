@@ -70,15 +70,15 @@ oooo.
 
 o.ooo
 ooxx.
-oox1x
+oox.x
 
 o.xxx
-ox11o
-ox121
+ox..o
+ox...
 
-x.111
-x122x
-x12.2
+x....
+x...x
+x....
 """
         mocker.patch('src.renderer.base.sleep')
         grid = gd.Grid(3, 5, 0.5, 0.7)
