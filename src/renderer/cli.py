@@ -43,15 +43,6 @@ class CLIRenderer(base.BaseRenderer):
         self.display()
         return True
 
-    def render(self):
-        """
-        Simulate the forest fire.
-        """
-        step = 1
-        self.display()
-        while step < self.number_steps and self.update():
-            step += 1
-
     @staticmethod
     def _color_text(text, color):
         """

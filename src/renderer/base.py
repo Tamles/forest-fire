@@ -20,12 +20,13 @@ class BaseRenderer(ABC):
         self.update_rate = update_rate
         self.number_steps = number_steps
 
-    @abstractmethod # pragma: no mutate
     def render(self):
         """
         Should render the forest.
         """
-        raise NotImplementedError   # pragma: no cover
+        step = 1
+        while step < self.number_steps and self.update():
+            step += 1
 
     def update(self):
         """

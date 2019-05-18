@@ -52,11 +52,7 @@ class TestCLIRender:
         src.renderer.base.sleep.assert_called_with(1)
 
     def test_render(self, mocker, capsys):
-        FOREST = """.....
-.....
-.....
-
-..oo.
+        FOREST = """..oo.
 o.oo.
 ..o..
 
