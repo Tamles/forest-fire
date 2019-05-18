@@ -22,6 +22,17 @@ class TestGrid:
         grid = gd.Grid(4, 5)
         assert self.grid_is_empty(grid)
 
+    def test_initial_state(self):
+        random.seed(0)
+        initial_grid = [[-1, -1, -1, -1, -1],
+                        [-1, -1, -1, 0, -1],
+                        [-1, -1, -1, -1, -1],
+                        [-1, -1, -1, -1, -1],
+                        [-1, 0, 0, 0, 0],
+                        [-1, -1, 0, -1, 0]]
+        grid = gd.Grid(6, 5, planting_rate=0.3, initial_state=True)
+        assert grid._grid == initial_grid
+
     def test_len_grid(self):
         grid = gd.Grid(4, 5)
         assert len(grid) == 4 * 5
