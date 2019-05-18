@@ -7,7 +7,8 @@ import src.engine.grid as gd
 
 class DebugRenderer(base.BaseRenderer):
     """
-    CLI Renderer.
+    Debug Renderer.
+    Useful to check correct states, but ugly display.
     Extend from the base renderer and implement the render method.
     """
 
@@ -40,31 +41,13 @@ class DebugRenderer(base.BaseRenderer):
         Update the forest and display it, and sleep until next step.
         """
         super().update()
-
-    def render(self):
-        """
-        Simulate the forest fire.
-        """
-        step = 1
         self.display()
-        while step < self.number_steps:
-            self.update()
-            self.display()
-            step += 1
-
-    @staticmethod
-    def _color_text(text, color):
-        """
-        Add ANSI code to text to change the color of the text.
-        text: string, the text which should be colorized
-        color: string, color name that is available in colorama
-        """
-        return Fore.__dict__[color] + Back.__dict__[color] + text + Back.RESET + Fore.RESET
+        return True
 
     @staticmethod
     def _render_cell(cell):
         """
-        Return a character based on the state of the cell.
-        cell: string, one of the 3 states available in the grid: EMPTY, TREE or BURNING
+        Return a number as a string based on the state of the cell.
+        cell: str, the state of the cell as string
         """
         return str(cell)

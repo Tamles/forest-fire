@@ -47,8 +47,8 @@ class CLIRenderer(base.BaseRenderer):
     def _color_text(text, color):
         """
         Add ANSI code to text to change the color of the text.
-        text: string, the text which should be colorized
-        color: string, color name that is available in colorama
+        text: str, the text which should be colorized
+        color: str, color name that is available in colorama
         """
         return Fore.__dict__[color] + Back.__dict__[color] + text + Back.RESET + Fore.RESET
 
@@ -56,7 +56,7 @@ class CLIRenderer(base.BaseRenderer):
     def _render_cell(cell):
         """
         Return a character based on the state of the cell.
-        cell: string, one of the 3 states available in the grid: EMPTY, TREE or BURNING
+        cell: str, one of the 3 states available in the grid: EMPTY, TREE or BURNING
         """
         cells = {
             gd.TREE: CLIRenderer._color_text('o', 'GREEN'),

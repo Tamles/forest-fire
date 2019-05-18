@@ -38,7 +38,7 @@ class Grid:
         """
         Put a value in a cell.
         index: tuple of 2 int, the x and y coordinates
-        value: string, the value put in the cell, should be one of the states EMPTY, TREE or BURNING
+        value: str, the value put in the cell, should be one of the states EMPTY, TREE or BURNING
         """
         x, y = index
         self._grid[y][x] = value
