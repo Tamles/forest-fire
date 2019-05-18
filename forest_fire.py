@@ -42,11 +42,12 @@ def main():
     parser = argparse.ArgumentParser(description="Run a simulation of forest fire")
     parser.add_argument('--update_rate', type=positive_float, help="Time between two update of the forest, in seconds", default=0.2)
     parser.add_argument('--number_steps', type=positive_int, help="Number of steps before the simulation ends", default=50)
-    parser.add_argument('--planting_rate', type=probability, help="Probability of a tree to grow on an empty cell", default=0.1)
+    parser.add_argument('--planting_rate', type=probability, help="Probability of a tree to grow on an empty cell", default=0.01)
     parser.add_argument('--lightning_rate', type=probability, help="Probability of a light to strike each step", default=0.4)
     parser.add_argument('-W', '--width', type=positive_int, help="Width of the forest", default=24)
     parser.add_argument('-H', '--height', type=positive_int, help="Height of the forest", default=18)
     parser.add_argument('--renderer', help="Which renderer to use", default='cli')
+    parser.add_argument('--no_initial_state', help="Pregenerate forest", action='store_true')
     args = parser.parse_args()
     update_rate = args.update_rate
     number_steps = args.number_steps
@@ -54,7 +55,8 @@ def main():
     lightning_rate = args.lightning_rate
     width = args.width
     height = args.height
-    grid = gd.Grid(height, width, planting_rate=planting_rate, lightning_rate=lightning_rate)
+    initial_state = not args.no_initial_state
+    grid = gd.Grid(height, width, planting_rate=planting_rate, lightning_rate=lightning_rate, initial_state=initial_state)
     if args.renderer == 'gui':
         renderer = gui_rd.GUIRenderer(grid, update_rate=update_rate, number_steps=number_steps)
     elif args.renderer == 'cli':

@@ -13,7 +13,7 @@ class Grid:
     Grid object.
     Cells can be accessed with grid[x][y] notation.
     """
-    def __init__(self, height, width, planting_rate=0, lightning_rate=0):
+    def __init__(self, height, width, planting_rate=0, lightning_rate=0, initial_state=False):
         """
         height: int, the number of rows in the grid
         width: int, the number of columns in the grid
@@ -25,6 +25,11 @@ class Grid:
         self.planting_rate = planting_rate
         self.lightning_rate = lightning_rate
         self._grid = [[EMPTY]*width for _ in range(height)]
+        if initial_state:
+            for x in range(self.width):
+                for y in range(self.height):
+                    if random.random() < self.planting_rate**(1/10):
+                        self[x, y] = TREE
 
     def __getitem__(self, index):
         """
