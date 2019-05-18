@@ -47,9 +47,9 @@ class TestDebugRender:
     def test_time_update(self, mocker):
         mocker.patch('src.renderer.base.sleep')
         grid = gd.Grid(3, 2)
-        renderer = debug_rd.DebugRenderer(grid, update_rate=1)
+        renderer = debug_rd.DebugRenderer(grid)
         renderer.update()
-        src.renderer.base.sleep.assert_called_with(1)
+        src.renderer.base.sleep.assert_called_with(0.2)
 
     def test_render(self, mocker, capsys):
         FOREST = """00-1-10

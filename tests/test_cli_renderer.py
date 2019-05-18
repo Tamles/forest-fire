@@ -47,9 +47,9 @@ class TestCLIRender:
     def test_time_update(self, mocker):
         mocker.patch('src.renderer.base.sleep')
         grid = gd.Grid(3, 2)
-        renderer = cli_renderer.CLIRenderer(grid, update_rate=1)
+        renderer = cli_renderer.CLIRenderer(grid)
         renderer.update()
-        src.renderer.base.sleep.assert_called_with(1)
+        src.renderer.base.sleep.assert_called_with(0.2)
 
     def test_render(self, mocker, capsys):
         FOREST = """..oo.
