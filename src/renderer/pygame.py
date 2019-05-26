@@ -14,6 +14,10 @@ class GUIRenderer(base.BaseRenderer):
         pygame.init()
         self.width = 960
         self.height = 720
+        self.cell_width = 960//grid.width
+        self.cell_height = 720//grid.height
+        self.x_offset = (960 - self.cell_width * grid.width)/2
+        self.y_offset = (720 - self.cell_height * grid.height)/2
         self.screen = pygame.display.set_mode((self.width, self.height))
 
     def render(self):
@@ -29,7 +33,7 @@ class GUIRenderer(base.BaseRenderer):
         self.screen.fill((0, 0, 0))
         for x in range(self.grid.width):
             for y in range(self.grid.height):
-                cell = pygame.Rect(x*10, y*10, 8, 8)
+                cell = pygame.Rect(self.x_offset + x*self.cell_width, self.y_offset + y*self.cell_height, self.cell_width, self.cell_height)
                 if self.grid[x, y] == gd.BURNING:
                     color = 255, 0, 0
                 elif self.grid[x, y] == gd.TREE:
