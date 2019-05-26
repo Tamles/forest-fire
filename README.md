@@ -33,13 +33,13 @@ Then, in the virtual environnement, run:
 To run the simulation, run the script:
 
 ```console
-(venv) $ python forest-fire.py
+(venv) $ python forest_fire.py
 ```
 
 To get help:
 
 ```console
-(venv) $ python forest-fire.py -h
+(venv) $ python forest_fire.py -h
 ```
 
 ## Tests
